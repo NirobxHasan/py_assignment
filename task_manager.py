@@ -28,12 +28,12 @@ class TaskManager:
 			return True
 		return False
 	
-	# Bug Fix: By default, list_tasks will return as pending unless the include_completed argument (True) is specified.
+	# Bug Fix: By default, list_tasks will return as only pending tasks unless the include_completed argument (True) is specified.
 	def list_tasks(self, include_completed=False):  
 		tasks = self.storage.get_all_tasks()
-		if not include_completed: 					# Missing `include_completed` check.
+		if not include_completed: 					# Check `include_completed`.
 			return [task for task in tasks if not task.completed]  #return pending task.
-		return tasks
+		return tasks 
 
 	def generate_report(self):
 		tasks = self.storage.get_all_tasks()
