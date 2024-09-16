@@ -29,7 +29,7 @@ class TestTaskManager(unittest.TestCase):
 		self.assertEqual(len(result), 2)
 		self.assertNotIn(tasks[1], result)
 
-	def test_generate_report(self):
+	def test_generate_report(self):					#Bug Fix
 		tasks = [
 		    Task("Task 1", "Description 1"),
 		    Task("Task 2", "Description 2"),
@@ -39,8 +39,8 @@ class TestTaskManager(unittest.TestCase):
 		self.storage.get_all_tasks.return_value = tasks
 		report = self.manager.generate_report()
 		self.assertEqual(report["total"], 3)
-		self.assertEqual(report["completed"], 2)
-		self.assertEqual(report["pending"], 1)
+		self.assertEqual(report["completed"], 1)  	#Changed: We assigned one task as completed, so the completed count will be one.
+		self.assertEqual(report["pending"], 2) 		#Changed: And pending count will be two.
 
 	def test_complete_nonexistent_task(self):
 		self.storage.get_task.return_value = None
